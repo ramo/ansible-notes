@@ -151,5 +151,50 @@ dallas_nodes
 |:---|
 | `{{ variable_name }} neeed to be written inside quotes if it is not concatenated with other strings.`|
 
+## Conditionals
+- Execute different tasks based on value of a data, a variable or the result of previous task.
+- `when` statement is used in task level, if the result is True, the task is executed.
+- All variables can be used directly in conditionals without *double curly braces*.
+- `==` `and` `or` operators are used in conditional statements.
+- `when` can be combined with `loop` statement to apply conditionals in loop. Condition is applied separately on each item.
+- Previous task results can be registered in variable using `register` keyword. String contents of the registered variable using `variable.stdout`
 
+## Loops
+- Execute a task multiple times, Ansible offers `loop`, `with_<lookup>` and `until` keywords.
+- Any `with_*` statements which requires `lookup` within a loop should not be converted to `loop` keyword.
+- `loop` keyword is equivalent to `with_list`, and is the best choice for simple loops.
+
+```yaml
+- name: Print list of fruits
+  hosts: localhost
+  vars:
+    fruits:
+      - Apple
+      - Banana
+      - Grapes
+      - Orange
+  tasks:
+    - command: echo "{{ item }}"
+      with_items: "{{ fruits }}"
+```
+
+## Roles
+- A way to package reusable ansible Playbooks and share with others. 
+- Roles let you automatically load Ansible artifacts (vars, files, tasks, handlers, etc.,).
+- Used for orgnaizing the ansible code into tasks, vars, defaults, handlers, templates, etc., directories. 
+- `Ansible Glaxy` is a place where you can find many useful Ansible roles. 
+- `ansible-galaxy init <role>` command used to create the required directory structure for the role. 
+- Roles will be referred from `roles` directory in play's current directory or `/etc/ansible/roles` directory.
+- In `/etc/ansible/ansible.cfg` roles path is defined as `roles_path = /etc/ansible/roles`
+- To search a role, use `ansible-galaxy search <role keyword>` or can use the Ansible Galaxy website.
+- To use a role, use `ansible-galaxy install <role>`. The role will be extracted to `/etc/ansible/roles` directory.
+- To list roles, use `ansible-galaxy list`. Roles path can be found by `ansible-config dump | grep ROLE`
+- Use `ansible-galaxy install <role> -p ./roles` for installing the role not in the default roles directory.
+
+## Advanced Topics
+### Preparing Windows Server
+### Ansible-Galaxy
+### Patterns
+### Dynamic Inventory
+### Developing Custom Modules
 
