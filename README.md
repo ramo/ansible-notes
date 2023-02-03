@@ -10,7 +10,7 @@
 - Complex scripts can be written in few lines of ansible-playbook
 
 # Ansible Concepts
-- `Control node` - The machine from which ansible CLI tools run.
+- `Control node` - The machine from which ansible CLI tools run. This can only be Linux machine.
 - `Managed node (hosts)` - Target devices managed by Ansible. 
 ## Inventory
 - A list of managed nodes.
@@ -193,8 +193,19 @@ dallas_nodes
 
 ## Advanced Topics
 ### Preparing Windows Server
-### Ansible-Galaxy
-### Patterns
-### Dynamic Inventory
-### Developing Custom Modules
+- Windows targets requires `winrm` on the machine for Ansible connection. Requires configuration on the target machine.
+- `pywinrm` module need to be installed on the Ansible control machine.
 
+### Ansible-Galaxy
+- Repository of re-usable ansible roles from the community. 
+
+### Patterns
+- In ansible commands and playbooks, patterns can be used to select specific group of hosts in your inventory.
+- Patterns are highly flexible. wildcard, RegEx, exclude, etc., available.
+
+### Dynamic Inventory
+- Ansible inventory with fluctuating host IP entries, etc., can make use of Dynamic inventory. 
+- This is achieved by inventory plugins. Eg. aws_ec2 plugin.
+
+### Developing Custom Modules
+- If required custom logic can be written in Python and can be imported as Ansible custom module.
